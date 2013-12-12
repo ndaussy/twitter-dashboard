@@ -1,0 +1,199 @@
+/**************************************
+ COULEURS :	#242123 (33,33,33) gris foncé
+			#fff100 (255,241,0) jaune (lien)
+			#
+ ******************************/
+
+ /*************************************
+* 1. Chargement des polices
+***************************************/
+
+/*************************************
+* 2. Structure
+*************************************/
+body{
+    overflow-x: hidden;
+	margin: 0;
+	padding: 0;
+    font-family:Serifa,Arial,sans-serif;
+    color:white;
+    background-size: cover;  /* si possible l'image couvre toute la page  */
+    -webkit-background-size: cover; /* pour Chrome et Safari */
+    -moz-background-size: cover; /* pour Firefox */
+    -o-background-size: cover; /* pour Internet Explorer */
+    background-color: #242123;
+    background-image:url(../image/fond-clair.jpg);
+    background-repeat: no-repeat; /* si la fenêtre n'est pas adapté l'image de se répête pas */
+}
+a {
+    text-decoration:none;
+}
+a:hover{
+    text-decoration:none;
+}
+ul{
+    margin:0;
+    padding:0;
+}
+li {
+    list-style: none;
+    margin:0;
+    padding:0
+}
+aside > ul {
+    margin:0;
+    padding:0;
+    margin-left:30px;
+}
+aside {
+    overflow:hidden;
+    min-height: 700px;
+    height: 100%;
+    background-color: rgba(33,33,33,0.6);
+}
+#body {
+	position:relative;
+	bottom:20px;
+}
+.no-marge {
+	padding:0;
+	margin:0;
+}
+h2 {
+	color:black;
+}
+aside ul li ul li a{
+	color:grey;
+}
+#butPlay {
+	margin-bottom:10px;
+	padding-left:40px;
+	padding-right:40px;
+}
+video {
+	margin-bottom:20px;
+}
+#sound {
+	padding:15px;
+    background-color: rgba(155,155,155,0.6);
+}
+audio {
+	width:100%;
+}
+#progress {
+	width:40%;
+}
+#butPlaySound {
+	margin-bottom:10px;
+}
+#body {
+	position:relative;
+    bottom:20px;
+}
+aside ul input[type=radio] {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+}
+
+/*************************************
+* 2. Media Query
+*************************************/
+@media all and (max-width: 991px) {
+    aside > ul > li > ul  {
+        margin-left:20px;
+        padding-right:20px;
+        -moz-column-count:4; /* Firefox */
+        -webkit-column-count:4; /* Safari and Chrome */
+        column-count:4;
+        width:100%;
+    }
+    aside{
+        min-height: 200px;
+    }
+    aside > ul {
+        margin-left:0px;
+    }
+
+    .tabs input[type=radio] {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    .tabs {
+        float: none;
+        list-style: none;
+        padding: 0;
+        width:100%;
+    }
+    .tabs > li{
+        float: left;
+    }
+    .tabs label {
+        border-bottom: 2px solid white;
+        display: block;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 1px;
+        cursor: pointer;
+        -webkit-transition: all 0.2s ease-in-out;
+        -moz-transition: all 0.2s ease-in-out;
+        -o-transition: all 0.2s ease-in-out;
+        transition: all 0.2s ease-in-out;
+    }
+    .tabs label:hover {
+        border-bottom: 2px solid green;
+        background-color: rgba(255,255,255,0.2);
+    }
+
+    [id^=tab]:checked + label {
+        border-bottom: 2px solid green;
+        color: white;
+    }
+
+    [id^=tab]:checked ~ [id^=tab-content] {
+        display: block;
+    }
+    .tab-content{
+        margin-top: 5px;
+        z-index: 2;
+        display: none;
+        text-align: left;
+        font-size: 16px;
+        color: white;
+        position: absolute;
+        left: 0;
+        box-sizing: border-box;
+        -webkit-animation-duration: 0.5s;
+        -o-animation-duration: 0.5s;
+        -moz-animation-duration: 0.5s;
+        animation-duration: 0.5s;
+    }
+}
+
+@media all and (max-width: 610px) {
+    [for|="tab4"] h2{
+        display:none;
+    }
+    [for|="tab4"] {    
+        position: relative;
+        bottom:500px;
+    }
+    aside > ul > li > ul  {
+        margin-left:20px;
+        padding-right:20px;
+        -moz-column-count:3; /* Firefox */
+        -webkit-column-count:3; /* Safari and Chrome */
+        column-count:3;
+        width:100%;
+    }
+
+}
+@media all and (max-width: 480px) {
+
+    aside{
+        display: none;
+    }
+
+}
+
