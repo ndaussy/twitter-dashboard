@@ -1,0 +1,34 @@
+//$requete = "https://api.twitter.com/1.1/search/tweets.json?q=%23poissy&result_type=recent";
+	//echo '<a href="'.$requete.'">clic</a>';
+    /*
+    $keanu = new Node($client);
+    $keanu->setProperty('name', 'Keanu Reeves')->save();
+    $laurence = new Node($client);
+    $laurence->setProperty('name', 'Laurence Fishburne')->save();
+    $jennifer = new Node($client);
+    $jennifer->setProperty('name', 'Jennifer Connelly')->save();
+    $kevin = new Node($client);
+    $kevin->setProperty('name', 'Kevin Bacon')->save();
+
+    $matrix = new Node($client);
+    $matrix->setProperty('title', 'The Matrix')->save();
+    $higherLearning = new Node($client);
+    $higherLearning->setProperty('title', 'Higher Learning')->save();
+    $mysticRiver = new Node($client);
+    $mysticRiver->setProperty('title', 'Mystic River')->save();
+
+    $matrix->relateTo($higherLearning, 'LIVES_ON')
+    ->setProperty('duration', 'all his life')
+    ->save();
+    $matrix->relateTo($mysticRiver, 'LIVES_ON')
+    ->setProperty('duration', 'all his life')
+    ->save();
+    $matrix->relateTo($kevin, 'LIVES_ON')
+    ->setProperty('duration', 'all his life')
+    ->save();
+    $matrix->relateTo($laurence, 'LIVES_ON')
+    ->setProperty('duration', 'all his life')
+    ->save();
+    $matrix->relateTo($jennifer, 'LIVES_ON')
+    ->setProperty('duration', 'all his life')
+    ->save();*/

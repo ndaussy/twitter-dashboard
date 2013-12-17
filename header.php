@@ -13,7 +13,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="#">Ressource</a></li>
-                    <li><a href="#">Store</a></li>
+                    <li><a href="test-graph.php">Store</a></li>
                 </ul>                
                 <form class="navbar-form navbar-left" method="post" role="search">
                   <div class="form-group">

@@ -1,13 +1,6 @@
 <?php
 
-	//1 - Settings (please update to math your own)
-	$consumer_key='GWsrOc634Km76SVoTKDQ'; //Provide your application consumer key
-	$consumer_secret='PiQMNeYsvAe4L25eNoDy2DQKTBmWrx5IMqNojOMStxI'; //Provide your application consumer secret
-	$oauth_token = '1920550170-jnntnZ0Oq0Egj3rU5JZcAjge8zcurUHZo6WIZsT'; //Provide your oAuth Token
-	$oauth_token_secret = 'VLFHiyTWWSm7XTOsfYfQRiZjpRiIUR0IVMh99WHrE9SZ9'; //Provide your oAuth Token Secret
-
-	//2 - Include @abraham's PHP twitteroauth Library
-	include ('twitteroauth.php');
+	include ('./model/twitteroauth.php');
 
 	require("phar://neo4jphp.phar");
     use Everyman\Neo4j\Client,
@@ -17,56 +10,17 @@
 
     $client = new Everyman\Neo4j\Client();
 
-    //print_r($client->getServerInfo());
+   	include('./model/DataManager.php');
 
-	//3 - Authentication
-	/* Create a TwitterOauth object with consumer/user tokens. */
-	$connection = new TwitterOAuth($consumer_key, $consumer_secret, $oauth_token, $oauth_token_secret);
+    $manager = new DataManager();
 
-	//4 - Start Querying
-    if ($_POST!=NULL) {
-        $query = 'https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name='.$_POST['saisie'].'&count=10'; //Your Twitter API query
-    }else {
-        $query = 'https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=jeremyquindos&count=10'; //Your Twitter API query        
-    }
-    $content = $connection->get($query);
-    
+    $manager->Connection();
 
-	//$requete = "https://api.twitter.com/1.1/search/tweets.json?q=%23poissy&result_type=recent";
-	//echo '<a href="'.$requete.'">clic</a>';
+    session_start();
 
-    $keanu = new Node($client);
-    $keanu->setProperty('name', 'Keanu Reeves')->save();
-    $laurence = new Node($client);
-    $laurence->setProperty('name', 'Laurence Fishburne')->save();
-    $jennifer = new Node($client);
-    $jennifer->setProperty('name', 'Jennifer Connelly')->save();
-    $kevin = new Node($client);
-    $kevin->setProperty('name', 'Kevin Bacon')->save();
+    $content = $manager->getTweets();
 
-    $matrix = new Node($client);
-    $matrix->setProperty('title', 'The Matrix')->save();
-    $higherLearning = new Node($client);
-    $higherLearning->setProperty('title', 'Higher Learning')->save();
-    $mysticRiver = new Node($client);
-    $mysticRiver->setProperty('title', 'Mystic River')->save();
-
-    $matrix->relateTo($higherLearning, 'LIVES_ON')
-    ->setProperty('duration', 'all his life')
-    ->save();
-    $matrix->relateTo($mysticRiver, 'LIVES_ON')
-    ->setProperty('duration', 'all his life')
-    ->save();
-    $matrix->relateTo($kevin, 'LIVES_ON')
-    ->setProperty('duration', 'all his life')
-    ->save();
-    $matrix->relateTo($laurence, 'LIVES_ON')
-    ->setProperty('duration', 'all his life')
-    ->save();
-    $matrix->relateTo($jennifer, 'LIVES_ON')
-    ->setProperty('duration', 'all his life')
-    ->save();
-
+    $_SESSION['content'] = $content;
 	//var_dump($content);
     require_once('head.php');
 ?>
@@ -74,35 +28,12 @@
 <body>
     <?php require_once('header.php'); ?>
 
-    <style>
-
-    svg {
-      font: 10px sans-serif;
-    }
-
-    .bar rect {
-      fill: steelblue;
-      shape-rendering: crispEdges;
-    }
-
-    .bar text {
-      fill: #fff;
-    }
-
-    .axis path, .axis line {
-      fill: none;
-      stroke: #000;
-      shape-rendering: crispEdges;
-    }
-
-    </style>
-    
     <div id="body">
         <div class="col-md-3 no-marge ">
             <aside>
                 <ul class="tabs">
                     <li>
-                        <input type="radio"  name="tabs" id="tab2">
+                        <input type="radio"  name="tabs" checked id="tab2">
                         <label for="tab2"><h2>Profil</h2></label>
                         <ul id="tab-content2" class="tab-content animated fadeIn">
                              <img style="float:left; margin-right:10px; padding-top:5px;" src="<?php echo $content[0]->user->profile_image_url;?>"/>
@@ -111,17 +42,17 @@
                                  <a href="<?php echo $content[0]->user->url; ?>" target="_blank"> Link to website</a>  </br>
                                  Description : <?php echo $content[0]->user->description; ?>  </br>
                                  Language : <?php echo $content[0]->user->lang; ?>  </br>
-                            </p>                        
+                            </p>
                         </ul>
                     </li>
                     <li>
-                        <input type="radio" checked name="tabs" id="tab1">
+                        <input type="radio"  name="tabs" id="tab1">
                         <label for="tab1"><h2>Visualization</h2></label>
                         <ul id="tab-content1" class="tab-content animated fadeIn">
-                            <li><a href="">Localisation</a></li>
-                            <li><a href="">% Retweet</a></li>
-                            <li><a href="">Size Usage</a></li>
-                            <li><a href="">Technology</a></li>
+                            <li><a class="active" id="view-techno" href="#">Technology</a></li>
+                            <li><a id="view-activity" href="#">Activity</a></li>
+                            <li><a id="view-user" href="#">User</a></li>
+                            <li><a href="#">Size Usage</a></li>
                          </ul>
                     </li>
                 </ul>
@@ -131,20 +62,53 @@
             <div class="row">
                 <div role="main" class="col-md-offset-1 col-md-9">
                     <article >
-                        <h1>BI Dashboard</h1>
-                        <button id="butPlay" class="btn btn-primary pull-right" type="button">Play</button>
+                        <h1 style="text-align:center;">BI Dashboard</h1>
                         </br>
-                        <?php 
-                        foreach ($content as $tweet) {
-                        
-                            $date = new DateTime($tweet->created_at);
-                            echo $date->format("l jS \of F Y \a \t h:i:s A").'</br>'.$tweet->text.'</br></br>';
-                        }
-                        ?>
-					</article>  
+                        <iframe id="frame-techno" width="100%" height="500" src="http://localhost/ece_data_mining/Graph_techno/viewTechnoUse.php" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+					    <iframe id="frame-activity" style="display:none;" width="100%" height="500" src="http://localhost/ece_data_mining/Graph_activity/viewActivity.php" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+					    <iframe id="frame-user" style="display:none;" width="100%" height="800" src="http://localhost/ece_data_mining/Graph_user/viewgraphUser.php" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+					</article>
                 </div>
+                <script>
+                    window.onload = function()
+                    {
+                        (function (){
+                            if(!!window.HTMLVideoElement){
+                                var viewTechno= document.getElementById('view-techno');
+                                var viewActivity = document.getElementById('view-activity');
+                                var viewUser = document.getElementById('view-user');
+                                var progressbar= document.getElementById('progressbar');
 
-               
+                                viewTechno.addEventListener('click',function(){
+                                    viewActivity.className = "";
+                                    viewUser.className = "";
+                                    $('#frame-techno').css({'display':'block'});
+                                    $('#frame-activity').css({'display':'none'});
+                                    $('#frame-user').css({'display':'none'});
+                                    viewTechno.className = "active";
+                                });
+
+                                viewActivity.addEventListener('click',function(){
+                                    viewUser.className = "";
+                                    viewTechno.className = "";
+                                    $('#frame-techno').css({'display':'none'});
+                                    $('#frame-activity').css({'display':'block'});
+                                    $('#frame-user').css({'display':'none'});
+                                    viewActivity.className = "active";
+                                });
+
+                                viewUser.addEventListener('click',function(){
+                                    viewActivity.className = "";
+                                    viewTechno.className = "";
+                                    $('#frame-techno').css({'display':'none'});
+                                    $('#frame-activity').css({'display':'none'});
+                                    $('#frame-user').css({'display':'block'});
+                                    viewUser.className = "active";
+                                });
+                            }
+                        })();
+                    }
+                </script>
             </div>
         </div>
     </div>

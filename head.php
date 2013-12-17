@@ -15,7 +15,7 @@
 		<link rel="apple-touch-icon" href="image/apple-touch-57.jpg" >
 		<link rel="apple-touch-icon" href="image/apple-touch-72.jpg" sizes="72x72" >
 		<link rel="apple-touch-icon" href="image/apple-touch-114.jpg" sizes="114x114" >
-		<link rel="shortcut icon" type="image/x-icon" href="image/icone.ico" >
+		<link rel="shortcut icon" type="image/x-icon" href="image/twitter.ico" >
 
 		<meta name="author" content="ANDREINI Rémy & QUINDOS Jérémy" />
 		<meta name="generator" content="ANDREINI Rémy & QUINDOS Jérémy" />
