@@ -14,6 +14,7 @@ class Tweet
 
 	function __construct()
 	{
+    
 	}
 
 	function __destruct()

@@ -1,8 +1,5 @@
 <?php
 
-
-
-
 /**
  * @author Rémi
  * @version 1.0
@@ -11,11 +8,11 @@
 class Graphes
 {
 
-	function __construct()
+	public function __construct()
 	{
 	}
 
-	function __destruct()
+	public function __destruct()
 	{
 	}
 

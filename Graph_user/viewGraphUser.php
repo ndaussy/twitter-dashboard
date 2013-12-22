@@ -26,7 +26,7 @@ $(function () {
                 type: 'column'
             },
             title: {
-                text: 'Personne cite dans les twitts'
+                text: 'Personne cite dans les tweets'
             },
             subtitle: {
                 text: 'Source: twitter'
@@ -46,7 +46,10 @@ $(function () {
                         }
                     }
                     ?>
-                ]
+                ],
+                labels: {
+                    rotation: 90
+                }
             },
             yAxis: {
                 min: 0,

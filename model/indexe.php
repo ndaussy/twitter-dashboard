@@ -1,8 +1,5 @@
 <?php
 
-
-
-
 /**
  * @author Rémi
  * @version 1.0

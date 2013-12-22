@@ -13,12 +13,15 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="#">Ressource</a></li>
-                    <li><a href="test-graph.php">Store</a></li>
+                    <li><a href="test-graph.php">Concept</a></li>
                 </ul>                
                 <form class="navbar-form navbar-left" method="post" role="search">
                   <div class="form-group">
                     <input type="text" name="saisie" class="form-control" placeholder="Celebrities, #Search">
                   </div>
+                  <div class="form-group">
+                    <input type="text" name="counter" class="form-control" placeholder="Number of tweet">
+                  </div>                  
                   <button type="submit" class="btn btn-default">Submit</button>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
